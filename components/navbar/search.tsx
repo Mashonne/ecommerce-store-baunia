@@ -1,7 +1,6 @@
 "use client";
 
-import { BiSearch } from 'react-icons/bi';
-
+import { BiSearch } from "react-icons/bi";
 
 const Search = () => {
   return (
@@ -9,12 +8,9 @@ const Search = () => {
       className="
           hidden
           md:block
-          border-[1px] 
           w-full 
           md:w-auto 
-          py-2 
-          rounded-full 
-          shadow-sm 
+          rounded-full
           hover:shadow-md 
           transition 
           cursor-pointer
@@ -28,12 +24,10 @@ const Search = () => {
                 justify-between
                 "
       >
-      
         <div
           className="
           text-sm 
-          pl-6 
-          pr-2 
+          p-2 
           text-gray-600 
           flex 
           flex-row 
