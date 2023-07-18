@@ -12,12 +12,14 @@ import Button from "@/components/ui/button";
 import IconButton from "@/components/ui/icon-button";
 import { Category } from "@/types";
 import useLoginModal from "@/hooks/use-login-model";
+import { SafeUser } from "@/app/types";
 
 interface MobileNavbarProps {
   data: Category[];
+  currentUser?: SafeUser | null;
 }
 
-const MobileNavbar: React.FC<MobileNavbarProps> = ({ data }) => {
+const MobileNavbar: React.FC<MobileNavbarProps> = ({ data, currentUser }) => {
   const [open, setOpen] = useState(false);
   const loginModal = useLoginModal();
 
@@ -55,7 +57,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ data }) => {
 
         {/* Dialog position */}
         <div className="fixed inset-0 z-40 flex">
-          <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs gap-1 flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl">
+          <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs gap-1 flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl bg-opacity-70">
             {/* Close Button */}
             <div className="flex items-center justify-end px-4">
               <IconButton icon={<X size={15} />} onClick={onClose} />
@@ -77,9 +79,9 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ data }) => {
                   </Link>
                 ))}
               </div>
-              <div
-                onClick={() => loginModal.onOpen()}
-                className="
+              {currentUser?.name ? (
+                <div
+                  className="
                     px-5 py-4 
                     flex
                     gap-2
@@ -88,10 +90,27 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ data }) => {
                     cursor-pointer
                     hover:bg-neutral-400
                     "
-              >
-                <LuUser size={20} />
-                <label>Login/Signup</label>
-              </div>
+                >
+                  <LuUser size={20} />
+                  <label>{currentUser?.name}</label>
+                </div>
+              ) : (
+                <div
+                  onClick={() => loginModal.onOpen()}
+                  className="
+                    px-5 py-4 
+                    flex
+                    gap-2
+                    bg-black 
+                    text-white 
+                    cursor-pointer
+                    hover:bg-neutral-400
+                    "
+                >
+                  <LuUser size={20} />
+                  <label>Login/Signup</label>
+                </div>
+              )}
             </div>
           </Dialog.Panel>
         </div>

@@ -44,13 +44,15 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                         cursor-pointer
                     "
           >
-            <Avatar src={currentUser?.image}/>
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
         {isOpen && (
           <div
             className="
                 absolute 
+                hidden 
+                lg:block 
                 rounded-xl 
                 shadow-md
                 w-[60vw]

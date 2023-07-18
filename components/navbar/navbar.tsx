@@ -41,7 +41,7 @@ const Navbar: React.FC<NavBarProps> = async ({ currentUser }) => {
                         gap-1
                         md:gap-2">
             <Logo />
-            <MainNav data={categories} />
+            <MainNav data={categories} currentUser={currentUser}/>
             <Search />
             </div>    
            

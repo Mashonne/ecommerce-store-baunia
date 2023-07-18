@@ -8,13 +8,15 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils';
 import { Category } from '@/types';
 import MobileNavbar from './mobile-navbar';
+import { SafeUser } from '@/app/types';
 
 interface MainNavProps{
     data: Category[],
+    currentUser?: SafeUser | null;
 }
 
 const MainNav: React.FC<MainNavProps> = ({
-    data
+    data, currentUser,
 }) => {
     const pathname = usePathname();
     const [IsMounted, setIsMounted] = useState(false);
@@ -35,7 +37,7 @@ const MainNav: React.FC<MainNavProps> = ({
 
     return ( 
         <>  
-            <MobileNavbar data={data}/>
+            <MobileNavbar data={data} currentUser={currentUser}/>
             <nav
                 className='hidden lg:flex mx-6 items-center space-x-4 lg:space-x-6'
             >
