@@ -1,13 +1,24 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { signOut } from "next-auth/react";
 
 import Avatar from "../avatar";
 import MenuItem from "./menu-item";
-import useRegisterModal from "@/hooks/use-register-model";
+import { User } from "@prisma/client";
 
-const UserMenu = () => {
+import useRegisterModal from "@/hooks/use-register-model";
+import useLoginModal from "@/hooks/use-login-model";
+
+import { SafeUser } from "@/app/types";
+
+interface UserMenuProps {
+  currentUser?: SafeUser | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
@@ -33,7 +44,7 @@ const UserMenu = () => {
                         cursor-pointer
                     "
           >
-            <Avatar />
+            <Avatar src={currentUser?.image}/>
           </div>
         </div>
         {isOpen && (
@@ -52,16 +63,19 @@ const UserMenu = () => {
             "
           >
             <div className="flex flex-col cursor-pointer">
-              <>
-                <MenuItem 
-                  onClick={() => {}} 
-                  label="Login" 
-                />
-                <MenuItem 
-                  onClick={registerModal.onOpen} 
-                  label="Sign up" 
-                />
-              </>
+              {currentUser ? (
+                <>
+                  <MenuItem onClick={() => {}} label="My favorites" />
+                  <MenuItem onClick={() => {}} label="Watchlist" />
+                  <hr />
+                  <MenuItem onClick={() => signOut()} label="Logout" />
+                </>
+              ) : (
+                <>
+                  <MenuItem onClick={loginModal.onOpen} label="Login" />
+                  <MenuItem onClick={registerModal.onOpen} label="Sign up" />
+                </>
+              )}
             </div>
           </div>
         )}

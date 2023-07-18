@@ -7,6 +7,7 @@ import Footer from '@/components/footer'
 import ModalProvider from '@/providers/modal-provider'
 import ToastProvider from '@/providers/toast-provider'
 import Navbar from '@/components/navbar/navbar'
+import getCurrentUser from '@/actions/getCurrentUser'
 
 const font = Nunito({ subsets: ['latin'] })
 
@@ -15,17 +16,19 @@ export const metadata: Metadata = {
   description: 'Store',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const currentUser = await getCurrentUser();
+  
   return (
     <html lang="en">
       <body className={font.className}>
         <ModalProvider />
         <ToastProvider />
-        <Navbar />
+        <Navbar currentUser={currentUser}/>
         {children}
         <Footer />
       </body>

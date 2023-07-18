@@ -1,74 +1,74 @@
-'use client'
+"use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { IoMdClose } from 'react-icons/io';
+import { IoMdClose } from "react-icons/io";
 import SocialButton from "../social-button";
 
 interface ModalProps {
-    isOpen?: boolean;
-    onClose: () => void;
-    onSubmit: () => void;
-    title?: string;
-    body?: React.ReactElement;
-    footer?: React.ReactElement;
-    actionLabel: string;
-    disabled?: boolean;
-    secondaryAction?: () => void;
-    secondaryActionLabel?: string;
+  isOpen?: boolean;
+  onClose: () => void;
+  onSubmit: () => void;
+  title?: string;
+  body?: React.ReactElement;
+  footer?: React.ReactElement;
+  actionLabel: string;
+  disabled?: boolean;
+  secondaryAction?: () => void;
+  secondaryActionLabel?: string;
 }
 
 const AuthModal: React.FC<ModalProps> = ({
-    isOpen,
-    onClose,
-    onSubmit,
-    title,
-    body,
-    footer,
-    actionLabel,
-    disabled,
-    secondaryAction,
-    secondaryActionLabel
+  isOpen,
+  onClose,
+  onSubmit,
+  title,
+  body,
+  footer,
+  actionLabel,
+  disabled,
+  secondaryAction,
+  secondaryActionLabel,
 }) => {
-    const [showModal, setShowModal] = useState(isOpen);
-    
-    useEffect(() => {
-        setShowModal(isOpen);
-    }, [isOpen])
-    
-    const handleClose = useCallback(() => {
-        if (disabled) {
-            return;
-        }
+  const [showModal, setShowModal] = useState(isOpen);
 
-        setShowModal(false);
-        setTimeout(() => {
-            onClose();
-        }, 300)
-    }, [disabled, onClose]);
+  useEffect(() => {
+    setShowModal(isOpen);
+  }, [isOpen]);
 
-    const handleSubmit = useCallback(() => {
-        if (disabled) {
-            return;
-        }
-
-        onSubmit();
-    }, [disabled, onSubmit]);
-
-    const handleSecondaryAction = useCallback(() => {
-        if (disabled || !secondaryAction) {
-            return;
-        }
-        secondaryAction();
-    }, [disabled, secondaryAction])
-    
-    if (!isOpen){
-        return null;
+  const handleClose = useCallback(() => {
+    if (disabled) {
+      return;
     }
 
-    return (
-        <>
-            <div
-              className="
+    setShowModal(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [disabled, onClose]);
+
+  const handleSubmit = useCallback(() => {
+    if (disabled) {
+      return;
+    }
+
+    onSubmit();
+  }, [disabled, onSubmit]);
+
+  const handleSecondaryAction = useCallback(() => {
+    if (disabled || !secondaryAction) {
+      return;
+    }
+    secondaryAction();
+  }, [disabled, secondaryAction]);
+
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
+    <>
+      <div
+        className="
                 justify-center
                 items-center
                 flex
@@ -81,9 +81,9 @@ const AuthModal: React.FC<ModalProps> = ({
                 focus:outline-none
                 bg-neutral-800/70
               "
-            >
-                <div
-                    className="
+      >
+        <div
+          className="
                        relative
                        w-full
                        md:w-4/6
@@ -92,24 +92,21 @@ const AuthModal: React.FC<ModalProps> = ({
                        my-6
                        mx-auto
                        h-full
-                       lg:h-auto
-                       md:h-auto
                     "
-                >
-                    {/* CONTENT */}
-                    <div
-                        className={`
+        >
+          {/* CONTENT */}
+          <div
+            className={`
                             translate
                             duration-300
                             h-full
-                            ${showModal ? 'translate-y-0' : 'translate-y-full'}
-                            ${showModal ? 'opacity-100' : 'opacity-0'}
+                            ${showModal ? "translate-y-0" : "translate-y-full"}
+                            ${showModal ? "opacity-100" : "opacity-0"}
                         `}
-                    >
-                        <div
-                           className="
-                              translate-x-0
-                              h-full
+          >
+            <div
+              className="
+                              translate-x-0                           
                               lg:h-auto
                               md:h-auto
                               border-0
@@ -123,10 +120,10 @@ const AuthModal: React.FC<ModalProps> = ({
                               oultine-none
                               focus:outline-none
                            "
-                        >
-                            {/* HEADER */}
-                            <div 
-                                className="
+            >
+              {/* HEADER */}
+              <div
+                className="
                                     flex 
                                     items-center
                                     p-6
@@ -135,10 +132,10 @@ const AuthModal: React.FC<ModalProps> = ({
                                     relative
                                     border-b-[1px]
                                 "
-                            >
-                                <button
-                                    onClick={handleClose}
-                                    className="
+              >
+                <button
+                  onClick={handleClose}
+                  className="
                                         p-1
                                         border-0
                                         hover:opacity-70
@@ -146,59 +143,54 @@ const AuthModal: React.FC<ModalProps> = ({
                                         absolute
                                         left-9
                                     "
-                                >
-                                    {""}
-                                    <IoMdClose 
-                                        size={18}
-                                    />
-                                </button >
-                                <div
-                                  className="
+                >
+                  {""}
+                  <IoMdClose size={18} />
+                </button>
+                <div
+                  className="
                                     text-lg
                                     font-semibold
                                   "
-                                >
-                                    {title}
-                                </div>
-                            </div> 
-                            {/* BODY */}
-                            <div className="relative p-6 flex-auto">
-                                {body}
-                            </div>
-                            {/* FOOTER */}
-                            <div className="flex flex-col gap-2 p-6">
-                                <div
-                                    className="
+                >
+                  {title}
+                </div>
+              </div>
+              {/* BODY */}
+              <div className="relative p-6 flex-auto">{body}</div>
+              {/* FOOTER */}
+              <div className="flex flex-col gap-2 p-6">
+                <div
+                  className="
                                         flex
                                         flex-row
                                         items-center
                                         gap-4
                                         w-full
                                     "
-                                >
-
-                                </div>
-                                {secondaryAction && secondaryActionLabel && (
-                                    <SocialButton 
-                                        outline
-                                        disabled={disabled}
-                                        label={secondaryActionLabel}
-                                        onClick={handleSecondaryAction}
-                                    />
-                                )}
-                                <SocialButton 
-                                    disabled={disabled}
-                                    label={actionLabel}
-                                    onClick={handleSubmit}
-                                />
-                            </div>
-                        </div>
-
-                    </div>
+                >
+                  {secondaryAction && secondaryActionLabel && (
+                    <SocialButton
+                      outline
+                      disabled={disabled}
+                      label={secondaryActionLabel}
+                      onClick={handleSecondaryAction}
+                    />
+                  )}
+                  <SocialButton
+                    disabled={disabled}
+                    label={actionLabel}
+                    onClick={handleSubmit}
+                  />
                 </div>
+                {footer}
+              </div>
             </div>
-        </>
-    );
-}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default AuthModal;

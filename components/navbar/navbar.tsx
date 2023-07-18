@@ -7,9 +7,18 @@ import getCategories from "@/actions/get-categories";
 import UserMenu from "@/components/navbar/user-menu";
 import NavbarActions from "./navbar-actions";
 
+import { SafeUser } from "@/app/types";
+
+interface NavBarProps{
+  currentUser?: SafeUser | null;
+}
+
 export const revalidate = 0;
 
-const Navbar = async () => {
+const Navbar: React.FC<NavBarProps> = async ({
+  currentUser,
+}) => {
+  
   const categories = await getCategories();
   return (
     <div className="relative w-full bg-white z-10 shadow-sm">
@@ -36,7 +45,7 @@ const Navbar = async () => {
               <Search />
             </div>
             <div className="flex">
-              <UserMenu />
+              <UserMenu currentUser={currentUser}/>
               <NavbarActions />
             </div>
           </div>
