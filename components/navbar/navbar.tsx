@@ -9,16 +9,13 @@ import NavbarActions from "./navbar-actions";
 
 import { SafeUser } from "@/app/types";
 
-interface NavBarProps{
+interface NavBarProps {
   currentUser?: SafeUser | null;
 }
 
 export const revalidate = 0;
 
-const Navbar: React.FC<NavBarProps> = async ({
-  currentUser,
-}) => {
-  
+const Navbar: React.FC<NavBarProps> = async ({ currentUser }) => {
   const categories = await getCategories();
   return (
     <div className="relative w-full bg-white z-10 shadow-sm">
@@ -39,13 +36,17 @@ const Navbar: React.FC<NavBarProps> = async ({
                         md:gap-0
                     "
           >
+            <div className="flex flex-row items-center 
+                        justify-between 
+                        gap-1
+                        md:gap-2">
             <Logo />
+            <MainNav data={categories} />
+            <Search />
+            </div>    
+           
             <div className="flex">
-              <MainNav data={categories} />
-              <Search />
-            </div>
-            <div className="flex">
-              <UserMenu currentUser={currentUser}/>
+              <UserMenu currentUser={currentUser} />
               <NavbarActions />
             </div>
           </div>

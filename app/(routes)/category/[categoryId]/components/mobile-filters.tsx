@@ -8,7 +8,7 @@ import { Color, Size } from "@/types";
 import Button from "@/components/ui/button";
 import IconButton from "@/components/ui/icon-button";
  
-import Filter from "./filter"
+import Filter from "./filter";
 
 interface MobileFiltersProps {
   sizes: Size[];

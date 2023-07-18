@@ -13,8 +13,10 @@ import SocialButton from "../social-button";
 import AuthModal from "./auth-modal";
 import Heading from "../heading";
 import Input from "../inputs/input";
+import useLoginModal from "@/hooks/use-login-model";
 
 const RegisterModal = () => {
+  const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,6 +65,12 @@ const RegisterModal = () => {
       })
       .finally(() => setIsLoading(false));
   };
+
+  const onToggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [registerModal, loginModal])
+
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -120,8 +128,8 @@ const RegisterModal = () => {
       >
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Already have an account?</div>
-          <div
-            onClick={registerModal.onClose}
+          <span
+            onClick={onToggle}
             className="
               text-neutral-800
               cursor-pointer
@@ -129,7 +137,7 @@ const RegisterModal = () => {
             "
           >
             Log in
-          </div>
+          </span>
         </div>
       </div>
     </div>

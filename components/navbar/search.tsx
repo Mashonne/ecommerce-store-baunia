@@ -7,7 +7,7 @@ const Search = () => {
     <div
       className="
           hidden
-          md:block
+          lg:block
           w-full 
           md:w-auto 
           rounded-full

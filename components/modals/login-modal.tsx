@@ -71,6 +71,11 @@ const LoginModal = () => {
       .finally(() => setIsLoading(false));
   };
 
+  const onToggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal])
+
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Welcome to Back" subtitle="Login to your Account!" />
@@ -118,17 +123,17 @@ const LoginModal = () => {
         "
       >
         <div className="justify-center flex flex-row items-center gap-2">
-          <div>Already have an account?</div>
-          <div
-            onClick={loginModal.onClose}
+          <div>First time using Baunia?</div>
+          <span
+            onClick={onToggle}
             className="
               text-neutral-800
               cursor-pointer
               hover:underline
             "
           >
-            Log in
-          </div>
+             Create an account
+          </span>
         </div>
       </div>
     </div>
