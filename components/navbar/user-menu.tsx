@@ -28,7 +28,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   return (
     <>
       <div className="relative">
-        <div className="flex flex-row items-center gap-3">
+        <div className="flex flex-row items-center gap-2">
           <div
             onClick={toggleOpen}
             className="
