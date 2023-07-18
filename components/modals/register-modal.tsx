@@ -34,11 +34,11 @@ const RegisterModal = () => {
     setIsLoading(true);
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/register`, data)
+      .post("/api/register", data)
       .then(() => {
         registerModal.onClose();
-        toast.success("Registration successful!")
-        signIn('credentials', data);
+        toast.success("Registration successful!");
+        signIn("credentials", data);
       })
       .catch((error) => {
         toast.error("Something went wrong!");
@@ -98,19 +98,19 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <SocialButton 
+      <SocialButton
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => socialActions('google')}
+        onClick={() => socialActions("google")}
       />
-      <SocialButton 
+      <SocialButton
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => socialActions('github')}
+        onClick={() => socialActions("github")}
       />
-      <div 
+      <div
         className="
           text-neutral-500
           text-center
@@ -119,10 +119,8 @@ const RegisterModal = () => {
         "
       >
         <div className="justify-center flex flex-row items-center gap-2">
-          <div>
-            Already have an account?
-          </div>
-          <div 
+          <div>Already have an account?</div>
+          <div
             onClick={registerModal.onClose}
             className="
               text-neutral-800
@@ -135,7 +133,7 @@ const RegisterModal = () => {
         </div>
       </div>
     </div>
-  )
+  );
 
   return (
     <AuthModal
