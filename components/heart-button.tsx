@@ -1,13 +1,16 @@
 'use client'
 
+import { MouseEventHandler } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 interface HeartButtonProps{
     productId: string;
+    onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const HeartButton: React.FC<HeartButtonProps> = ({
-    productId
+    productId,
+    onClick
 }) => {
     const hasFavored = false;
     const toggleFavorite = () => {}

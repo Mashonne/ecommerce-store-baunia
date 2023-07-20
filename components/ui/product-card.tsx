@@ -33,6 +33,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
     previewModal.onOpen(data);
   }
 
+  const onFavorite :MouseEventHandler<HTMLButtonElement> = (event) =>{
+    event.stopPropagation();
+  }
+
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) =>{
     event.stopPropagation();
 
@@ -40,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }
 
   return (
-    <div className="bg-white group p-3 border rounded-xl cursor-pointer space-y-4">
+    <div onClick={handleClick} className="bg-white group p-3 border rounded-xl cursor-pointer space-y-4">
       {/* Images and Actions */}
       <div
         className="
@@ -65,7 +69,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     "
         />
         <div className="absolute top-3 right-3">
-          <HeartButton productId={data.id} />
+          <HeartButton 
+              productId={data.id} 
+              onClick={onFavorite}
+          />
         </div>
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-cneter">
@@ -81,7 +88,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
       {/* Description */}
-      <div onClick={handleClick} className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
           <div>
             <p className="font-semibold text-lg">{data.name}</p>
             <p className="text-sm text-gray-500">{data.category?.name}</p>

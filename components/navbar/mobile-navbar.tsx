@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { LuAlignLeft, LuUser } from "react-icons/lu";
+import { AiOutlinePoweroff } from "react-icons/ai";
 import { Dialog } from "@headlessui/react";
 import { usePathname } from "next/navigation";
 
@@ -13,6 +14,7 @@ import IconButton from "@/components/ui/icon-button";
 import { Category } from "@/types";
 import useLoginModal from "@/hooks/use-login-model";
 import { SafeUser } from "@/app/types";
+import { signOut } from "next-auth/react";
 
 interface MobileNavbarProps {
   data: Category[];
@@ -80,19 +82,37 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ data, currentUser }) => {
                 ))}
               </div>
               {currentUser?.name ? (
-                <div
-                  className="
-                    px-5 py-4 
-                    flex
-                    gap-2
-                    bg-black 
-                    text-white 
-                    cursor-pointer
-                    hover:bg-neutral-400
-                    "
-                >
-                  <LuUser size={20} />
-                  <label>{currentUser?.name}</label>
+                <div>             
+                  <div
+                    className="
+                      px-5 py-4 
+                      flex
+                      gap-2
+                      bg-black 
+                      text-white 
+                      cursor-pointer
+                      hover:bg-neutral-400
+                      border-b-[1px]
+                      "
+                  >
+                    <LuUser size={20} />
+                    <label>Hi! {currentUser?.name}</label>
+                  </div>
+                  <div
+                    onClick={() => signOut()}
+                    className="
+                      px-5 py-4 
+                      flex
+                      gap-3
+                      bg-black 
+                      text-white 
+                      cursor-pointer
+                      hover:bg-neutral-400
+                      "
+                  >
+                    <AiOutlinePoweroff size={20} />
+                    <label>Logout</label>
+                  </div>
                 </div>
               ) : (
                 <div
@@ -100,7 +120,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ data, currentUser }) => {
                   className="
                     px-5 py-4 
                     flex
-                    gap-2
+                    gap-3
                     bg-black 
                     text-white 
                     cursor-pointer

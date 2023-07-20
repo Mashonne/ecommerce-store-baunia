@@ -6,6 +6,7 @@ import Container from "@/components/container";
 import getCategories from "@/actions/get-categories";
 import UserMenu from "@/components/navbar/user-menu";
 import NavbarActions from "./navbar-actions";
+import getAllProducts from "@/actions/get-all-products";
 
 import { SafeUser } from "@/app/types";
 
@@ -17,6 +18,7 @@ export const revalidate = 0;
 
 const Navbar: React.FC<NavBarProps> = async ({ currentUser }) => {
   const categories = await getCategories();
+  const products = await getAllProducts();
   return (
     <div className="relative w-full bg-white z-10 shadow-sm">
       <div
@@ -36,16 +38,21 @@ const Navbar: React.FC<NavBarProps> = async ({ currentUser }) => {
                         md:gap-0
                     "
           >
-            <div className="flex flex-row items-center 
-                        justify-between 
+            <div
+              className="
+                        flex flex-row 
+                        items-center 
                         gap-1
-                        md:gap-2">
-            <Logo />
-            <MainNav data={categories} currentUser={currentUser}/>
-            <Search />
-            </div>    
-           
-            <div className="flex">
+                        md:gap-2
+                        md:w-11/12
+                      "
+            >
+              <Logo />
+              <MainNav data={categories} currentUser={currentUser} />
+              <Search data={products}/>
+            </div>
+
+            <div className=" flex flex-row items-center justify-between">
               <UserMenu currentUser={currentUser} />
               <NavbarActions />
             </div>
