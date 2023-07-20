@@ -58,6 +58,7 @@ const Search: React.FC<SearchProps> = ({ data }) => {
             `
              px-5 
              py-1 
+             md:text-sm
              font-light 
              bg-white 
              outline-none
