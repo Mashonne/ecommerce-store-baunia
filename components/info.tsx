@@ -19,8 +19,12 @@ const Info: React.FC<InfoProps> = ({ data }) => {
 
   console.log(quantity);
 
+  const isQtyValid = quantity > data.quantity;
+
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    event.preventDefault();
+    if (quantity < 1) {
+      event.preventDefault();
+    }
   };
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = () => {
@@ -53,21 +57,26 @@ const Info: React.FC<InfoProps> = ({ data }) => {
         <div>
           <div className="flex gap-4">
             <h3 className="font-semibold text-black">Qty:</h3>
-            <input
-              type="number"
-              placeholder="Qty"
-              min="1"
-              onChange={(event) => setQuantity(Number(event.target.value))}
-              onKeyDown={handleKeyDown}
-              className={cn(
-                "p-2 border-[2px] outline-none w-1/2 text-gray-900 text-sm rounded-lg",
-                quantity > data.quantity ? "border-rose-500 text-rose-500" : "border-gray-300"
-              )}
-            />
+            <div className="flex flex-col">
+              <input
+                type="number"
+                placeholder="Qty"
+                value={quantity}
+                min="1"
+                onChange={(event) => setQuantity(Number(event.target.value))}
+                className={cn(
+                  "p-2 border-[2px] outline-none w-1/2 text-gray-900 text-sm rounded-lg",
+                  isQtyValid ? "border-rose-500 text-rose-500" : "border-gray-300"
+                )}
+              />
+              {isQtyValid ? (
+                <span className="text-rose-500 text-sm font-semibold">Invalid Quantity!</span>
+              ) : null}         
+            </div>
           </div>
         </div>
       </div>
-      {quantity > data.quantity ? (
+      {isQtyValid ? (
         <div
           className="mt-10 p-3 font-semibold rounded-md bg-neutral-300 text-black"
         >

@@ -1,17 +1,20 @@
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { X } from "lucide-react";
+import { useState } from "react";
 
 import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { Product } from "@/types";
+import { cn } from "@/lib/utils";
 
 interface CartItemProps {
   data: Product;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ data }) => {
+  const [quantity, setQuantity] = useState(data.cartQuantity);
   const cart = useCart();
 
   const onRemove = () => {
@@ -40,10 +43,23 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
           <div className="mt-1 flex text-sm">
             <p className="text-gray-500">{data.color.name}</p>
             <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">
-              {data.size.name}
+              {data.size.value}
             </p>
           </div>
           <Currency value={data.price} />
+        </div>
+        <div className="flex items-center justify-end gap-2">
+          <label>Qty: </label>
+          <input
+                type="number"
+                placeholder="Qty"
+                value={quantity}
+                min="1"
+                onChange={(event) => setQuantity(Number(event.target.value))}
+                className={cn(
+                  "p-2 border-[2px] outline-none w-1/3 text-gray-900 text-sm rounded-lg"
+                )}
+              />
         </div>
       </div>
     </li>
