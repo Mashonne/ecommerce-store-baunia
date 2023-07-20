@@ -8,7 +8,6 @@ import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
-import UpdateQuantity from "@/components/ui/update-quantity";
 
 const Summary = () => {
   const searchParams = useSearchParams();
@@ -18,19 +17,13 @@ const Summary = () => {
   useEffect(() => {
     if (searchParams.get('success')) {
       toast.success('Payment completed.');
-      const updatedQuantity = items.map((item) => UpdateQuantity(item));
-      updatedQuantity.forEach((item) => {
-        axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/products/${item.id}`, 
-        item)
-      })
+    
       removeAll();
     }
     if (searchParams.get('canceled')) {
       toast.error('Something went wrong.');
     }
   }, [searchParams, removeAll, items]);
-
-
 
   const totalPrice = items.reduce((total, item) => {
 
