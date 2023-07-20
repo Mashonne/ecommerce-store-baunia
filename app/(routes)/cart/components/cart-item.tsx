@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image";
-import { toast } from "react-hot-toast";
 import { X } from "lucide-react";
 
 import IconButton from "@/components/ui/icon-button";
@@ -13,6 +12,8 @@ interface CartItemProps {
     data: Product;
 };
 
+export const revalidate = 60; 
+
 const CartItem: React.FC<CartItemProps> = ({
     data
 }) => {
@@ -22,9 +23,21 @@ const CartItem: React.FC<CartItemProps> = ({
         cart.removeItem(data.id)
     }
 
+    const cartQuantity = data.cartQuantity ? data.cartQuantity : 1;
+
     return (
         <li className="flex py-6 border-b">
-            <div className="relative h-24 w-24 rounded-md overflow-hidden sm:h-48 sm:w-48">
+            <div className={`
+                    relative 
+                    h-24 w-24 
+                    rounded-md 
+                    overflow-hidden 
+                    sm:h-48 
+                    sm:w-48
+                    ${cartQuantity > data.quantity ? 'opacity-50' : 'opacity-100'}
+                    `
+                }
+            >
                 <Image 
                     fill
                     src={data.images[0].url}
@@ -36,7 +49,17 @@ const CartItem: React.FC<CartItemProps> = ({
                 <div className="absolute z-10 right-0 top-0">
                     <IconButton onClick={onRemove} icon={<X size={15}/>} />
                 </div>
-                <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                <div 
+                    className={`
+                        relative 
+                        pr-9 
+                        sm:grid 
+                        sm:grid-cols-2 
+                        sm:gap-x-6 
+                        sm:pr-0
+                        ${cartQuantity > data.quantity ? 'opacity-50' : 'opacity-100'}
+                    `}
+                >
                     <div className="flex justify-between">
                         <p className="text-lg font-semibold text-black">
                             {data.name}
@@ -47,6 +70,7 @@ const CartItem: React.FC<CartItemProps> = ({
                         <p className="text-gray-500 ml-4 border-1 border-gray-200 pl-4">{data.size.name}</p>
                     </div>
                     <Currency value={data.price} />
+                    x{cartQuantity}          
                 </div>
             </div>
         </li>

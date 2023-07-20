@@ -6,7 +6,7 @@ import { Product } from "@/types";
 
 interface CartStore {
   items: Product[];
-  addItem: (data: Product) => void;
+  addItem: (data: Product, qty: number) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
 }
@@ -14,7 +14,7 @@ interface CartStore {
 const useCart = create(
   persist<CartStore>((set, get) => ({
     items: [],
-    addItem: (data: Product) => {
+    addItem: (data: Product, qty: number) => {
       const currentItems = get().items;
       const existingItem = currentItems.find((item) => item.id === data.id);
 
@@ -23,6 +23,7 @@ const useCart = create(
 
       }
 
+      data.cartQuantity = qty;
       set({items: [...get().items, data]});
       toast.success("Item added to cart!");
     },

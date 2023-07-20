@@ -17,8 +17,10 @@ export interface Product {
     price: string;
     isFeatured: boolean;
     size: Size;
+    quantity: number;
     color: Color;
     images: Image[];
+    cartQuantity?: number
 }
 
 export interface Image {
