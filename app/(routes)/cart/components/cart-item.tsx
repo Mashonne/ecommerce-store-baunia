@@ -54,7 +54,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                 type="number"
                 placeholder="Qty"
                 value={quantity}
-                min="1"
+                readOnly
                 onChange={(event) => setQuantity(Number(event.target.value))}
                 className={cn(
                   "p-2 border-[2px] outline-none w-1/3 text-gray-900 text-sm rounded-lg"

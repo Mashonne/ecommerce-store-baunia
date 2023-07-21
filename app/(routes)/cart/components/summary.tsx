@@ -27,7 +27,7 @@ const Summary = () => {
 
   const totalPrice = items.reduce((total, item) => {
     const quantity = item.cartQuantity || 1;
-    return (total + Number(item.price)) * quantity;
+    return total + Number(item.price) * quantity;
   }, 0);
 
   const productIds = items.map((item) => item.id);
