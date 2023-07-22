@@ -33,7 +33,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
         </p>
       </div>
       <hr className="my-4" />
-      <div className="flex justify-between">
+      <div className="flex flex-col md:flex-rowjustify-between">
         <div className="flex flex-col gap-y-6 p-2">
           <div className="flex items-center gap-4">
             <h3 className="font-semibold text-black">Size:</h3>
@@ -49,20 +49,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
             />
           </div>
         </div>
-
-        {/* <h3 className="font-semibold text-black">Qty:</h3> */}
         <div className="flex items-center py-2 gap-4">
-          {/* <input
-                type="number"
-                placeholder="Qty"
-                value={quantity}
-                min="1"
-                onChange={(event) => setQuantity(Number(event.target.value))}
-                className={cn(
-                  "p-2 border-[2px] outline-none w-1/2 text-gray-900 text-sm rounded-lg",
-                  isQtyValid ? "border-rose-500 text-rose-500" : "border-gray-300"
-                )}
-              /> */}
           <h3 className="font-semibold text-black">Quantity: </h3>
           <QuantityButton quantity={quantity} setQuantity={setQuantity} />
         </div>
@@ -80,9 +67,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
             Add To Cart
             <ShoppingCart />
           </Button>
-          <Button
-            className="flex justify-center w-full text-xl  items-center gap-x-2 border-[2px] border-black text-black rounded-md bg-neutral-100"
-          >
+          <Button className="flex justify-center w-full text-xl  items-center gap-x-2 border-[2px] border-black text-black rounded-md bg-neutral-100">
             Favorite
             <Heart />
           </Button>
