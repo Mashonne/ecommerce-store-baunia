@@ -33,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     previewModal.onOpen(data);
   }
 
-  const onFavorite :MouseEventHandler<HTMLButtonElement> = (event) =>{
+  const onFavorite :MouseEventHandler<HTMLDivElement> = (event) =>{
     event.stopPropagation();
   }
 
@@ -68,10 +68,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         transition
                     "
         />
-        <div className="absolute top-3 right-3">
+        <div onClick={onFavorite} className="absolute top-3 right-3">
           <HeartButton 
               productId={data.id} 
-              onClick={onFavorite}
           />
         </div>
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">

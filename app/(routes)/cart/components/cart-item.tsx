@@ -8,13 +8,14 @@ import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { Product } from "@/types";
 import { cn } from "@/lib/utils";
+import QuantityButton from "@/components/ui/quantity-button";
 
 interface CartItemProps {
   data: Product;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ data }) => {
-  const [quantity, setQuantity] = useState(data.cartQuantity);
+  const [quantity, setQuantity] = useState(data.cartQuantity || 1);
   const cart = useCart();
 
   const onRemove = () => {
@@ -50,6 +51,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
         </div>
         <div className="flex items-center justify-end gap-2">
           <label>Qty: </label>
+          {/* <QuantityButton quantity={quantity} setQuantity={setQuantity}/> */}
           <input
                 type="number"
                 placeholder="Qty"
@@ -57,7 +59,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                 readOnly
                 onChange={(event) => setQuantity(Number(event.target.value))}
                 className={cn(
-                  "p-2 border-[2px] outline-none w-1/3 text-gray-900 text-sm rounded-lg"
+                  "p-2 border-[2px] outline-none text-center first-letter:outline-none w-1/3 text-gray-900 text-sm rounded-lg"
                 )}
               />
         </div>

@@ -10,6 +10,7 @@ import Summery from "./components/summary";
 
 const CartPage = () => {
   const cart = useCart();
+  const [quantity, setQuantity] = useState(1);
 
   const [isMounted, setIsMounted] = useState(false);
 

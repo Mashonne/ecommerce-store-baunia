@@ -6,7 +6,8 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { LuAlignLeft, LuUser } from "react-icons/lu";
 import { AiOutlinePoweroff } from "react-icons/ai";
-import { Dialog } from "@headlessui/react";
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import { usePathname } from "next/navigation";
 
 import Button from "@/components/ui/button";
@@ -44,47 +45,56 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ data, currentUser }) => {
       >
         <LuAlignLeft size={20} />
       </Button>
+      <Transition show={open} appear as={Fragment}>
+        <Dialog
+          open={open}
+          as="div"
+          className="relative z-40 lg:hidden ease-in-out duration-300"
+          onClose={onClose}
+        >
+          {/* Background */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-25"
+            onClick={onClose}
+          />
 
-      <Dialog
-        open={open}
-        as="div"
-        className="relative z-40 lg:hidden"
-        onClose={onClose}
-      >
-        {/* Background */}
-        <div
-          className="fixed inset-0 bg-black bg-opacity-25"
-          onClick={onClose}
-        />
+          {/* Dialog position */}
+          <div className="fixed inset-0 z-40 flex">
+            <Transition.Child
+              as={Fragment}
+              enter="transition-all ease-in-out-quint duration-700"
+              enterFrom="opacity-0 w-0"
+              enterTo="opacity-100 w-full"
+              leave="transition-all ease-in-out-quint duration-700"
+              leaveFrom="opacity-100 w-full"
+              leaveTo="opacity-0 w-0"
+            >
+              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs gap-1 flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl bg-opacity-70">
+                {/* Close Button */}
+                <div className="flex items-center justify-end px-4">
+                  <IconButton icon={<X size={15} />} onClick={onClose} />
+                </div>
 
-        {/* Dialog position */}
-        <div className="fixed inset-0 z-40 flex">
-          <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs gap-1 flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl bg-opacity-70">
-            {/* Close Button */}
-            <div className="flex items-center justify-end px-4">
-              <IconButton icon={<X size={15} />} onClick={onClose} />
-            </div>
-
-            {/* Render the Routes */}
-            <div className="flex flex-col justify-between h-full">
-              <div className="pt-2 flex flex-col justify-end">
-                {routes.map((route) => (
-                  <Link
-                    key={route.href}
-                    href={route.href}
-                    className={cn(
-                      "px-5 py-4 border-b-[1px] bg-purple-400 text-white hover:bg-purple-300 transition-colors",
-                      route.active ? "bg-purple-300" : "bg-purple-400"
-                    )}
-                  >
-                    {route.label}
-                  </Link>
-                ))}
-              </div>
-              {currentUser?.name ? (
-                <div>             
-                  <div
-                    className="
+                {/* Render the Routes */}
+                <div className="flex flex-col justify-between h-full">
+                  <div className="pt-2 flex flex-col justify-end">
+                    {routes.map((route) => (
+                      <Link
+                        key={route.href}
+                        href={route.href}
+                        className={cn(
+                          "px-5 py-4 border-b-[1px] bg-purple-400 text-white hover:bg-purple-300 transition-colors",
+                          route.active ? "bg-purple-300" : "bg-purple-400"
+                        )}
+                      >
+                        {route.label}
+                      </Link>
+                    ))}
+                  </div>
+                  {currentUser?.name ? (
+                    <div>
+                      <div
+                        className="
                       px-5 py-4 
                       flex
                       gap-2
@@ -94,13 +104,13 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ data, currentUser }) => {
                       hover:bg-neutral-400
                       border-b-[1px]
                       "
-                  >
-                    <LuUser size={20} />
-                    <label>Hi! {currentUser?.name}</label>
-                  </div>
-                  <div
-                    onClick={() => signOut()}
-                    className="
+                      >
+                        <LuUser size={20} />
+                        <label>Hi! {currentUser?.name}</label>
+                      </div>
+                      <div
+                        onClick={() => signOut()}
+                        className="
                       px-5 py-4 
                       flex
                       gap-3
@@ -109,15 +119,15 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ data, currentUser }) => {
                       cursor-pointer
                       hover:bg-neutral-400
                       "
-                  >
-                    <AiOutlinePoweroff size={20} />
-                    <label>Logout</label>
-                  </div>
-                </div>
-              ) : (
-                <div
-                  onClick={() => loginModal.onOpen()}
-                  className="
+                      >
+                        <AiOutlinePoweroff size={20} />
+                        <label>Logout</label>
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => loginModal.onOpen()}
+                      className="
                     px-5 py-4 
                     flex
                     gap-3
@@ -126,15 +136,17 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ data, currentUser }) => {
                     cursor-pointer
                     hover:bg-neutral-400
                     "
-                >
-                  <LuUser size={20} />
-                  <label>Login/Signup</label>
+                    >
+                      <LuUser size={20} />
+                      <label>Login/Signup</label>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </Dialog.Panel>
-        </div>
-      </Dialog>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   );
 };

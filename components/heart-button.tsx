@@ -1,6 +1,6 @@
 'use client'
 
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 interface HeartButtonProps{
@@ -12,10 +12,14 @@ const HeartButton: React.FC<HeartButtonProps> = ({
     productId,
     onClick
 }) => {
-    const hasFavored = false;
-    const toggleFavorite = () => {}
+    const [hasFavored, setHasFavored] = useState(false);
+
+    const toggleFavorite = () => {
+        setHasFavored(!hasFavored)
+    }
     return ( 
         <div 
+            onClick={toggleFavorite}
             className="
                 realtive 
                 hover:opacity-80 

@@ -13,8 +13,6 @@ interface SearchProps {
 }
 
 const Search: React.FC<SearchProps> = ({ data }) => {
-  const searchModal = useSearchModal();
-
   const [IsMounted, setIsMounted] = useState(false);
   const [isExpand, setIsExpand] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -56,17 +54,19 @@ const Search: React.FC<SearchProps> = ({ data }) => {
         <input
           className={cn(
             `
-             px-5 
-             py-1 
              md:text-sm
+             right-0
+             transition-all 
+             ease-in-out 
+             duration-500 
+             overflow-hidden
              font-light 
              bg-white 
              outline-none
-             transition
-             duration-75
+             w-full
              disabled:opacity-70
              disabled:cursor-not-allowed`,
-            isExpand ? "block" : "hidden"
+            isExpand ? "w-full px-5 py-1 " : "w-0"
           )}
           placeholder="Search.."
           value={searchQuery}
@@ -86,13 +86,16 @@ const Search: React.FC<SearchProps> = ({ data }) => {
       </div>
 
       {searchQuery !== "" ? (
-        <ul onClick={onToggle} className="p-4 transition-all absolute w-1/3 border-[1px] flex flex-col bg-white rounded-md justify-center">
+        <ul
+          onClick={onToggle}
+          className="p-4 transition-all absolute w-1/3 border-[1px] flex flex-col bg-white rounded-md justify-center"
+        >
           {searchQuery !== ""
             ? data
                 .filter((item) =>
                   item.name.toLowerCase().includes(searchQuery.toLowerCase())
                 )
-                .map((product) => (                
+                .map((product) => (
                   <SearchResult key={product.id} data={product} />
                 ))
             : null}

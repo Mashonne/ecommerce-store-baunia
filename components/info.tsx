@@ -1,6 +1,6 @@
 "use client";
 
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Heart } from "lucide-react";
 
 import { Product } from "@/types";
 import Currency from "@/components/ui/currency";
@@ -8,6 +8,7 @@ import Button from "@/components/ui/button";
 import useCart from "@/hooks/use-cart";
 import { MouseEventHandler, useState } from "react";
 import { cn } from "@/lib/utils";
+import QuantityButton from "./ui/quantity-button";
 
 interface InfoProps {
   data: Product;
@@ -17,15 +18,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
   const cart = useCart();
   const [quantity, setQuantity] = useState(1);
 
-  console.log(quantity);
-
   const isQtyValid = quantity > data.quantity;
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (quantity < 1) {
-      event.preventDefault();
-    }
-  };
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = () => {
     cart.addItem(data, quantity);
@@ -40,11 +33,13 @@ const Info: React.FC<InfoProps> = ({ data }) => {
         </p>
       </div>
       <hr className="my-4" />
-      <div className="flex gap-4">
-        <div className="flex flex-col gap-y-6">
+      <div className="flex justify-between">
+        <div className="flex flex-col gap-y-6 p-2">
           <div className="flex items-center gap-4">
             <h3 className="font-semibold text-black">Size:</h3>
-            <div>{data?.size?.value}</div>
+            <div className="px-2 border-[1px] rounded-md">
+              {data?.size?.value}
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <h3 className="font-semibold text-black">Color:</h3>
@@ -54,11 +49,10 @@ const Info: React.FC<InfoProps> = ({ data }) => {
             />
           </div>
         </div>
-        <div>
-          <div className="flex gap-4">
-            <h3 className="font-semibold text-black">Qty:</h3>
-            <div className="flex flex-col">
-              <input
+
+        {/* <h3 className="font-semibold text-black">Qty:</h3> */}
+        <div className="flex items-center py-2 gap-4">
+          {/* <input
                 type="number"
                 placeholder="Qty"
                 value={quantity}
@@ -68,28 +62,30 @@ const Info: React.FC<InfoProps> = ({ data }) => {
                   "p-2 border-[2px] outline-none w-1/2 text-gray-900 text-sm rounded-lg",
                   isQtyValid ? "border-rose-500 text-rose-500" : "border-gray-300"
                 )}
-              />
-              {isQtyValid ? (
-                <span className="text-rose-500 text-sm font-semibold">Invalid Quantity!</span>
-              ) : null}         
-            </div>
-          </div>
+              /> */}
+          <h3 className="font-semibold text-black">Quantity: </h3>
+          <QuantityButton quantity={quantity} setQuantity={setQuantity} />
         </div>
       </div>
       {isQtyValid ? (
-        <div
-          className="mt-10 p-3 font-semibold rounded-md bg-neutral-300 text-black"
-        >
+        <div className="mt-10 p-3 font-semibold rounded-md bg-neutral-300 text-black">
           No enough in Stock
         </div>
       ) : (
-        <div className="mt-10 flex-items-center gap-x-3">
+        <div className="mt-10 flex items-center gap-4">
           <Button
             onClick={onAddToCart}
-            className="flex items-center gap-x-2 text-white bg-black"
+            className="flex items-center gap-x-2 text-white rounded-md bg-black"
           >
             Add To Cart
             <ShoppingCart />
+          </Button>
+          <Button
+            onClick={onAddToCart}
+            className="flex items-center gap-x-2 border-[2px] border-black text-black rounded-md bg-neutral-100"
+          >
+            Favorite
+            <Heart />
           </Button>
         </div>
       )}
