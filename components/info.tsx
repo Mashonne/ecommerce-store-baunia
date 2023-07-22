@@ -33,15 +33,15 @@ const Info: React.FC<InfoProps> = ({ data }) => {
         </p>
       </div>
       <hr className="my-4" />
-      <div className="flex flex-col md:flex-row gap-4 justify-between">
-        <div className="flex flex-col gap-y-6 p-2">
+      <div className="flex flex-col md:flex-row p-2 gap-4 justify-between">
+        <div className="flex flex-col gap-y-6">
           <div className="flex items-center gap-4">
             <h3 className="font-semibold text-black">Size:</h3>
             <div className="px-2 border-[1px] rounded-md">
               {data?.size?.value}
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <h3 className="font-semibold text-black">Color:</h3>
             <div
               className="h-6 w-6 rounded-full border border-gray-600"
