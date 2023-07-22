@@ -18,14 +18,14 @@ const QuantityButton: React.FC<QuantityButtonProps> = ({
   };
 
   return (
-    <div className="flex flex-row justify-between items-center">
+    <div className="flex flex-row justify-between border-[1px] p-2 rounded-lg items-center">
       <button
         onClick={decrement}
         disabled={quantity < 2}
-        className="p-1 outline-none border-[1px] rounded-md text-gray-900 text-sm"
+        className="p-2 outline-none bg-purple-100 rounded-md text-gray-900 text-sm"
       >
         {}
-        <BiMinus size={20} />
+        <BiMinus size={25} />
       </button>
       <input
         placeholder="1"
@@ -37,9 +37,9 @@ const QuantityButton: React.FC<QuantityButtonProps> = ({
       <button
         onClick={increment}
         disabled={quantity > 9}
-        className="p-1 outline-none border-[1px] rounded-md text-gray-900 text-sm"
+        className="p-2 outline-none bg-purple-100 rounded-md text-gray-900 text-sm"
       >
-        {} <BiPlus size={20} />
+        {} <BiPlus size={25} />
       </button>
     </div>
   );
