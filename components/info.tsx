@@ -49,7 +49,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
             />
           </div>
         </div>
-        <div className="flex items-center py-2 gap-4">
+        <div className="flex items-center py-2 gap-4 sm:px-2">
           <h3 className="font-semibold text-black">Quantity: </h3>
           <QuantityButton quantity={quantity} setQuantity={setQuantity} />
         </div>
