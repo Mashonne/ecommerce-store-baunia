@@ -12,8 +12,8 @@ import getCurrentUser from '@/actions/getCurrentUser'
 const font = Nunito({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Store',
-  description: 'Store',
+  title: 'Baunia',
+  description: 'E-commerce Store',
 }
 
 export default async function RootLayout({
