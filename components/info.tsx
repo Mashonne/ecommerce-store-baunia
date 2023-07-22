@@ -72,17 +72,16 @@ const Info: React.FC<InfoProps> = ({ data }) => {
           No enough in Stock
         </div>
       ) : (
-        <div className="mt-10 flex items-center gap-4">
+        <div className="mt-10 flex items-center gap-4 flex-col md:flex-row">
           <Button
             onClick={onAddToCart}
-            className="flex items-center gap-x-2 text-white rounded-md bg-black"
+            className="flex w-full justify-center text-xl items-center gap-x-2 text-white rounded-md bg-black"
           >
             Add To Cart
             <ShoppingCart />
           </Button>
           <Button
-            onClick={onAddToCart}
-            className="flex items-center gap-x-2 border-[2px] border-black text-black rounded-md bg-neutral-100"
+            className="flex justify-center w-full text-xl  items-center gap-x-2 border-[2px] border-black text-black rounded-md bg-neutral-100"
           >
             Favorite
             <Heart />
